@@ -70,10 +70,12 @@ Will appear after "terrform init". All plugin related to provider (AWS, Azure) w
 State of instructure. All resource will be here for Terraform to keep track
 example: EC2, VPC, subnet (all information will be here)
 
-<Put image 1 here>
+![This is an image](img/1.png)
 
-Refer
 
+
+
+Reference:
 [Terraform Course - Automate your AWS cloud infrastructure](https://www.youtube.com/watch?v=SLB_c_ayRMo&t=3179s&ab_channel=freeCodeCamp.org)
-https://www.youtube.com/watch?v=SLB_c_ayRMo&t=3179s&ab_channel=freeCodeCamp.org
+
 
