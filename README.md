@@ -3,11 +3,13 @@ Step by step on terraform deployment
 
 ## Creating Resources on Cloud
 
+```
 resource "<providers>_<resource_type>" "name"{
     config option ...
     key = "value"
     key = "another value"
  }
+```
 
 For resource_type please find at Terraform website 
 https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/instance
@@ -70,6 +72,8 @@ example: EC2, VPC, subnet (all information will be here)
 
 <Put image 1 here>
 
+Refer
 
-
+[Terraform Course - Automate your AWS cloud infrastructure](https://www.youtube.com/watch?v=SLB_c_ayRMo&t=3179s&ab_channel=freeCodeCamp.org)
+https://www.youtube.com/watch?v=SLB_c_ayRMo&t=3179s&ab_channel=freeCodeCamp.org
 
