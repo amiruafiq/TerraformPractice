@@ -19,11 +19,16 @@ https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/inst
 2) terraform plan (system check what changes will happen)
 3) terraform apply (apply the changes)
 4) terraform destroy (delete all resources)
+5)
+6) 
+
+![This is an image](img/TerraformStateList.png)
+![This is an image](img/TerraformStateShow.png)
 
 ### Create Intance / EC2
 ```
  #Create EC2
-resource "aws_instance" "my-first-terraform-server" {
+  resource "aws_instance" "my-first-terraform-server" {
   ami           = "ami-0f62d9254ca98e1aa" #Amazon Linux 2 Kernel 5.10 AMI 2.0.20220912.1 x86_64 HVM gp2
   instance_type = "t2.micro"
   tags = {
@@ -74,6 +79,7 @@ State of instructure. All resource will be here for Terraform to keep track
 example: EC2, VPC, subnet (all information will be here)
 
 ![This is an image](img/1.png)
+
 
 
 

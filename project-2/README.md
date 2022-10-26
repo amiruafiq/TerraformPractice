@@ -9,3 +9,5 @@ Task project 2
 8. Assign an elastic IP to the network interface created in step 7
 9. create ubuntu server and install/enable apache2
 
+![This is an image](img/TerraformStateList.png)
+![This is an image](img/TerraformStateShow.png)
