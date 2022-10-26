@@ -36,10 +36,13 @@ resource "aws_instance" "my-first-terraform-server" {
 
   ### Create VPC
 
+```
   resource "resource_type" "name" {
   cidr_block = "10.0.0.0/16"
 }
-For resource_type please find at Terraform website 
+``
+
+For **resource_type** please find at Terraform website 
 https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/vpc_ipv4_cidr_block_association
 
 ```
