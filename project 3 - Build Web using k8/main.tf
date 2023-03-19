@@ -1,8 +1,8 @@
 # Configure the AWS provider
 provider "aws" {
   region = "us-west-2"
-  access_key = "AKIAROMDZXFZJO4SVNOH"
-  secret_key = "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"  
+  access_key = "xx"
+  secret_key = "xxx"  
 }
 
 # Create a Kubernetes cluster
