@@ -1,55 +1,48 @@
-# Define the Azure provider and resource group
-provider "azurerm" {
-  features {}
+# Configure the AWS provider
+provider "aws" {
+  region = "us-west-2"
+  access_key = "AKIAROMDZXFZJO4SVNOH"
+  secret_key = "LE4ORHqS8V3d9yEO17EOj7FVXVRjqstew9+0LjMy"  
 }
 
-resource "azurerm_resource_group" "example" {
-  name     = "example-rg"
-  location = "eastus"
+# Create a Kubernetes cluster
+module "eks" {
+  source = "terraform-aws-modules/eks/aws"
+  
+  cluster_name = "my-cluster"
+  subnets      = ["subnet-xxxxxxxxxxxxxx", "subnet-yyyyyyyyyyyyyy", "subnet-zzzzzzzzzzzzzz"]
+  vpc_id       = "vpc-xxxxxxxxxxxxxxxxx"
 }
 
-# Define the Kubernetes cluster
-module "aks" {
-  source              = "Azure/kubernetes-engine/azurerm"
-  resource_group_name = azurerm_resource_group.example.name
-  cluster_name        = "example-aks"
-  dns_prefix          = "example-aks"
-
-  agent_pool_profile = [
-    {
-      name            = "agentpool1"
-      count           = 3
-      vm_size         = "Standard_DS2_v2"
-      os_disk_size_gb = 30
-      vnet_subnet_id  = "/subscriptions/<subscription-id>/resourceGroups/<resource-group-name>/providers/Microsoft.Network/virtualNetworks/<virtual-network-name>/subnets/<subnet-name>"
-    }
-  ]
-}
-
-# Define the Kubernetes deployment and service
-resource "kubernetes_deployment" "example" {
+# Deploy a simple website to the Kubernetes cluster
+resource "kubernetes_deployment" "website" {
   metadata {
-    name = "example"
+    name = "website"
+    labels = {
+      app = "website"
+    }
   }
 
   spec {
+    replicas = 3
+
     selector {
       match_labels = {
-        app = "example"
+        app = "website"
       }
     }
 
     template {
       metadata {
         labels = {
-          app = "example"
+          app = "website"
         }
       }
 
       spec {
         container {
-          name  = "example"
-          image = "nginx"
+          image = "nginx:latest"
+          name  = "website"
           port {
             container_port = 80
           }
@@ -59,22 +52,31 @@ resource "kubernetes_deployment" "example" {
   }
 }
 
-resource "kubernetes_service" "example" {
+# Expose the website using a LoadBalancer service
+resource "kubernetes_service" "website_lb" {
   metadata {
-    name = "example"
+    name = "website-lb"
   }
 
   spec {
     selector = {
-      app = "example"
+      app = kubernetes_deployment.website.spec.0.template.0.metadata.0.labels.app
     }
 
     port {
-      name       = "http"
-      port       = 80
+      name        = "http"
+      port        = 80
       target_port = 80
     }
 
     type = "LoadBalancer"
   }
+
+  depends_on = [
+    kubernetes_deployment.website
+  ]
 }
+
+# Note that this code assumes that you have already set up your AWS credentials 
+# and that you have created the necessary subnets and VPC for your EKS cluster. 
+# Also, you may need to modify the region, subnets, and VPC ID based on your specific setup.
